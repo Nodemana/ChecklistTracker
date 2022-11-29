@@ -20,6 +20,8 @@ export default function App() {
         <Stack.Screen name = "Register" component = {RegisterScreen}/>
         <Stack.Screen name = "Hub" component = {HubScreen}/>
         <Stack.Screen name = "NewList" component = {NewListScreen}/>
+        <Stack.Screen name = "ListDetails" component = {ListDetailsScreen}/>
+        <Stack.Screen name = "ListEditor" component = {ListEditorScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -133,13 +135,32 @@ function LoginScreen({navigation}) {
 }
 
 function HubScreen({navigation}){
+  const list_container = current_user.lists.map(list_name => <Button title={list_name} onPress={() => navigation.navigate('ListDetails')}/>)
 return(
   <View style={styles.container}>
     <View>
+      <Text>All Lists</Text>
+      <>{list_container}</>
     </View>
     <Button title="New List" onPress = {() => navigation.navigate('NewList')}/>
   </View>
-  )
+  );
+}
+
+function ListDetailsScreen({navigation}){
+  return(
+    <View>
+      <View><Text>Checked Numbers</Text></View>
+      <View><Text>Unchecked Numbers</Text></View>
+      <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor")}/>
+    </View>
+  );
+}
+
+function ListEditorScreen({navigation}){
+  return(
+    <View></View>
+  );
 }
 
 function NewListScreen({navigation}){
