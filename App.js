@@ -68,7 +68,7 @@ function RegisterScreen({navigation}) {
     console.log("registered")
     user_array.push(user)
     console.log(user_array[0].username)
-    Alert.alert("All Done!", "You have successfully registered.", [{text: "OK", onPress: () => {navigation.navigate('Home')}}])
+    Alert.alert("All Done!", "You have successfully registered, my guy", [{text: "OK", onPress: () => {navigation.navigate('Home')}}])
     //navigation.navigate('Home');
   }
 
