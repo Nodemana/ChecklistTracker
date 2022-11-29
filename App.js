@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { NavigationContainer, useNavigation, createNavigationContainerRef } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Text, Button, View, TextInput, Alert } from 'react-native';
 import {User} from './user.js';
 import {List} from './list.js';
 import {styles} from './stylesheet.js';
+import * as RootNavigation from './RootNavigation.js';
 
 const Stack = createNativeStackNavigator();
 const user_array = [];
@@ -13,7 +14,7 @@ let current_user = User;
 
 export default function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={RootNavigation.navigationRef}>
       <Stack.Navigator initialRouteName = "Home">
         <Stack.Screen name = "Home" component = {HomeScreen} />
         <Stack.Screen name = "Login" component = {LoginScreen} />
@@ -147,7 +148,7 @@ function Register(username, password){
   console.log("registered")
   user_array.push(user)
   console.log(user_array[0].username)
-  Alert.alert("All Done!", "You have successfully registered.", {text: "OK", onPress: () => {navigation.navigate('Home')}})
+  Alert.alert("All Done!", "You have successfully registered.", {text: "OK", onPress: () => {RootNavigation.navigate('Home')}})
   //navigation.navigate('Home');
 }
 
