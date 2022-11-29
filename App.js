@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
-import { NavigationContainer, useNavigation, createNavigationContainerRef } from '@react-navigation/native';
+import { NavigationContainer, useNavigation} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {Text, Button, View, TextInput, Alert } from 'react-native';
 import {User} from './user.js';
 import {List} from './list.js';
 import {styles} from './stylesheet.js';
-import * as RootNavigation from './RootNavigation.js';
 
 const Stack = createNativeStackNavigator();
 const user_array = [];
@@ -14,7 +13,7 @@ let current_user = User;
 
 export default function App() {
   return (
-    <NavigationContainer ref={RootNavigation.navigationRef}>
+    <NavigationContainer>
       <Stack.Navigator initialRouteName = "Home">
         <Stack.Screen name = "Home" component = {HomeScreen} />
         <Stack.Screen name = "Login" component = {LoginScreen} />
@@ -60,6 +59,17 @@ function HomeScreen({navigation}) {
 function RegisterScreen({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  
+  function Register(navigation, username, password){
+    const user = new User(username, password);
+    //const navigation = useNavigation();
+    console.log("registered")
+    user_array.push(user)
+    console.log(user_array[0].username)
+    Alert.alert("All Done!", "You have successfully registered.", [{text: "OK", onPress: () => {navigation.navigate('Home')}}])
+    //navigation.navigate('Home');
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Registration</Text>
@@ -75,7 +85,7 @@ function RegisterScreen({navigation}) {
       />
       <Button
         title="Register"
-        onPress = {() => Register(username, password)}
+        onPress = {() => Register(navigation, username, password)}
       />
     </View>
   )
@@ -84,6 +94,23 @@ function RegisterScreen({navigation}) {
 function LoginScreen({navigation}) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  function Login(username, password){
+    //const navigation = useNavigation();
+    for(let i = 0; i < user_array.length; i++){
+      if (username == user_array[i].username){
+        if (password == user_array[i].password){
+          logged_in = true;
+          current_user = user_array[i];
+          Alert.alert("All Done!", "You have successfully logged in.", [{text: "OK", onPress: () => {navigation.navigate('Hub')}}])
+        } 
+      } 
+    }
+    if (logged_in == false){
+      Alert.alert("Oh No!", "You have failed to log in, incorrect username or password.", [{text: "OK", onPress: () => {navigation.navigate('Login')}}])
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Login</Text> 
@@ -109,7 +136,6 @@ function HubScreen({navigation}){
 return(
   <View style={styles.container}>
     <View>
-    //Existing Lists container, all lists go here
     </View>
     <Button title="New List" onPress = {() => navigation.navigate('NewList')}/>
   </View>
@@ -119,6 +145,11 @@ return(
 function NewListScreen({navigation}){
   const [list_name, setListname] = useState('');
   const [size, setSize] = useState('');
+  
+  function New_List(list_name, size){
+    current_user.makeList(list_name, size);
+    //then navigate to the homescreen
+  }
   return(
     <View style={styles.container}>
       <TextInput 
@@ -136,35 +167,9 @@ function NewListScreen({navigation}){
   )
 }
 
-function New_List(list_name, size){
-  current_user.makeList(list_name, size);
-  //then navigate to the homescreen
-}
 
 
-function Register(username, password){
-  const user = new User(username, password);
-  //const navigation = useNavigation();
-  console.log("registered")
-  user_array.push(user)
-  console.log(user_array[0].username)
-  Alert.alert("All Done!", "You have successfully registered.", {text: "OK", onPress: () => {RootNavigation.navigate('Home')}})
-  //navigation.navigate('Home');
-}
 
 
-function Login(username, password){
-  //const navigation = useNavigation();
-  for(let i = 0; i < user_array.length; i++){
-    if (username == user_array[i].username){
-      if (password == user_array[i].password){
-        logged_in = true;
-        current_user = user_array[i];
-        Alert.alert("All Done!", "You have successfully logged in.", {text: "OK", onPress: () => {navigation.navigate('Home')}})
-      } 
-    } 
-  }
-  if (logged_in == false){
-    Alert.alert("Oh No!", "You have failed to log in, incorrect username or password.", {text: "OK", onPress: () => {navigation.navigate('Login')}})
-  }
-}
+
+
