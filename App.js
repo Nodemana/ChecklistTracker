@@ -148,9 +148,10 @@ function NewListScreen({navigation}){
   
   function New_List(list_name, size){
     current_user.makeList(list_name, size);
+    Alert.alert("All Done!", "You have successfully created " + list_name + ".", [{text: "OK", onPress: () => {navigation.navigate('Hub')}}])
     //then navigate to the homescreen
   }
-  return(
+  return( 
     <View style={styles.container}>
       <TextInput 
         style={styles.input} 

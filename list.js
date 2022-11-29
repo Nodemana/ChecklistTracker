@@ -3,7 +3,7 @@ export class List {
     size
     checked = [];
     constructor(list_name, size) {
-        this.username = username;
-        this.password = password;
+        this.list_name = list_name;
+        this.size = size;
     }
   }

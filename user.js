@@ -1,3 +1,5 @@
+import {List} from './list.js'
+
 export class User {
     username
     password
@@ -9,6 +11,6 @@ export class User {
   
     makeList(list_name, size){
       const list = new List(list_name, size);
-      User.lists.push(list);
+      this.lists.push(list);
     }
   }
