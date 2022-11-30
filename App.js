@@ -68,7 +68,7 @@ function RegisterScreen({navigation}) {
     console.log("registered")
     user_array.push(user)
     console.log(user_array[0].username)
-    Alert.alert("All Done!", "You have successfully registered, my guy", [{text: "OK", onPress: () => {navigation.navigate('Home')}}])
+    Alert.alert("All Done!", "You have successfully registered!", [{text: "OK", onPress: () => {navigation.navigate('Home')}}])
     //navigation.navigate('Home');
   }
 
@@ -104,7 +104,7 @@ function LoginScreen({navigation}) {
         if (password == user_array[i].password){
           logged_in = true;
           current_user = user_array[i];
-          Alert.alert("All Done!", "You have successfully logged in.", [{text: "OK", onPress: () => {navigation.push('Hub')}}])
+          Alert.alert("All Done!", "You have successfully logged in " + username + ".", [{text: "OK", onPress: () => {navigation.push('Hub')}}])
         } 
       } 
     }
@@ -135,7 +135,9 @@ function LoginScreen({navigation}) {
 }
 
 function HubScreen({navigation}){
-  const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.navigate('ListDetails')}/>)
+  const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.navigate('ListDetails', {
+    the_list: list
+  })}/>)
 return(
   <View style={styles.container}>
     <Text>All Lists</Text>
@@ -147,11 +149,13 @@ return(
   );
 }
 
-function ListDetailsScreen({navigation}){
+function ListDetailsScreen({route, navigation}){
+  const {the_list} = route.params
+  
   return(
     <View>
-      <View><Text>Checked Numbers</Text></View>
-      <View><Text>Unchecked Numbers</Text></View>
+      <View><Text>List Name: {JSON.stringify(the_list.list_name)}</Text></View>
+      <View><Text>Size: {JSON.stringify(the_list.size)}</Text></View>
       <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor")}/>
     </View>
   );
