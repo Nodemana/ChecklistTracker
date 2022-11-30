@@ -165,9 +165,29 @@ function ListDetailsScreen({route, navigation}){
   );
 }
 
-function ListEditorScreen({navigation}){
+function ListEditorScreen({route, navigation}){
+  const [checked_num, setCheckednum] = useState('');
+  const {list} = route.params
+
+  function EditList(checked_num){
+    if (!list.checked.includes(checked_num)){
+      list.checked.push(checked_num)
+      Alert.alert("Number has been checked.")
+    }else{
+      Alert.alert("Number has already been checked.")
+    }
+  }
+
   return(
-    <View></View>
+    <View style={styles.container}>
+      <Text>Enter a number to be checked from the list.</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Number Completed"
+        onChangeText={(text) => setCheckednum(text)}
+      />
+      <Button title="Check Number" onPress = {() => EditList(checked_num)}/>
+    </View>
   );
 }
 
