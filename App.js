@@ -104,7 +104,7 @@ function LoginScreen({navigation}) {
         if (password == user_array[i].password){
           logged_in = true;
           current_user = user_array[i];
-          Alert.alert("All Done!", "You have successfully logged in.", [{text: "OK", onPress: () => {navigation.navigate('Hub')}}])
+          Alert.alert("All Done!", "You have successfully logged in.", [{text: "OK", onPress: () => {navigation.push('Hub')}}])
         } 
       } 
     }
@@ -135,11 +135,11 @@ function LoginScreen({navigation}) {
 }
 
 function HubScreen({navigation}){
-  const list_container = current_user.lists.map(list_name => <Button title={list_name} onPress={() => navigation.navigate('ListDetails')}/>)
+  const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.navigate('ListDetails')}/>)
 return(
   <View style={styles.container}>
+    <Text>All Lists</Text>
     <View>
-      <Text>All Lists</Text>
       <>{list_container}</>
     </View>
     <Button title="New List" onPress = {() => navigation.navigate('NewList')}/>
@@ -169,7 +169,7 @@ function NewListScreen({navigation}){
   
   function New_List(list_name, size){
     current_user.makeList(list_name, size);
-    Alert.alert("All Done!", "You have successfully created " + list_name + ".", [{text: "OK", onPress: () => {navigation.navigate('Hub')}}])
+    Alert.alert("All Done!", "You have successfully created " + list_name + ".", [{text: "OK", onPress: () => {navigation.push('Hub')}}])
     //then navigate to the homescreen
   }
   return( 
