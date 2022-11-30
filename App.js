@@ -151,12 +151,34 @@ return(
 
 function ListDetailsScreen({route, navigation}){
   const {the_list} = route.params
-  
+  /*
+  checked_string = ''
+  unchecked_string = ''
+  for (let i = 1; i< the_list.checked.length; i++){
+    if(i = the_list.checked.length){
+      checked_string += the_list.checked[i] + "."
+    }else{
+      checked_string += the_list.checked[i] + ", "
+    }
+  }
+  const unchecked_length = the_list.size - the_list.checked.length
+  for (let j = 1; j < unchecked_length; j++){
+    if(j = unchecked_length){
+      unchecked_string += the_list.checked[j] + "."
+    }else{
+      unchecked_string += the_list.checked[j] + ", "
+    }
+  }
+  */
   return(
     <View>
-      <View><Text>List Name: {JSON.stringify(the_list.list_name)}</Text></View>
-      <View><Text>Size: {JSON.stringify(the_list.size)}</Text></View>
-      <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor")}/>
+      <View><Text>List Name: {String(the_list.list_name)}</Text></View>
+      <View><Text>Size: {String(the_list.size)}</Text></View>
+      <View><Text>Checked: {/*JSON.stringify(checked_string)*/}</Text></View>
+      <View><Text>Unchecked: {/*JSON.stringify(unchecked_string)*/}</Text></View>
+      <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor", {
+        list: the_list
+      })}/>
     </View>
   );
 }
