@@ -154,16 +154,38 @@ function ListDetailsScreen({route, navigation}){
   
   return(
     <View>
-      <View><Text>List Name: {JSON.stringify(the_list.list_name)}</Text></View>
-      <View><Text>Size: {JSON.stringify(the_list.size)}</Text></View>
-      <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor")}/>
+      <View><Text>List Name: {String(the_list.list_name)}</Text></View>
+      <View><Text>Size: {String(the_list.size)}</Text></View>
+      <Button title="Edit List" onPress = {() => navigation.navigate("ListEditor", {
+        list: the_list
+      })}/>
     </View>
   );
 }
 
-function ListEditorScreen({navigation}){
+function ListEditorScreen({route, navigation}){
+  const [checked_num, setCheckednum] = useState('');
+  const {list} = route.params
+
+  function EditList(checked_num){
+    if (!list.checked.includes(checked_num)){
+      list.checked.push(checked_num)
+      Alert.alert("Number has been checked.")
+    }else{
+      Alert.alert("Number has already been checked.")
+    }
+  }
+
   return(
-    <View></View>
+    <View style={styles.container}>
+      <Text>Enter a number to be checked from the list.</Text>
+      <TextInput 
+        style={styles.input} 
+        placeholder="Number Completed"
+        onChangeText={(text) => setCheckednum(text)}
+      />
+      <Button title="Check Number" onPress = {() => EditList(checked_num)}/>
+    </View>
   );
 }
 
