@@ -6,12 +6,14 @@ import {User} from './user.js';
 import {List} from './list.js';
 import {styles} from './stylesheet.js';
 
+
 const Stack = createNativeStackNavigator();
 const user_array = [];
 let logged_in = new Boolean(false);
 let current_user = User;
 
 export default function App() {
+  //const navigation = useNavigation();
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName = "Home">
@@ -21,7 +23,11 @@ export default function App() {
         <Stack.Screen name = "Hub" component = {HubScreen}/>
         <Stack.Screen name = "NewList" component = {NewListScreen}/>
         <Stack.Screen name = "ListDetails" component = {ListDetailsScreen}/>
-        <Stack.Screen name = "ListEditor" component = {ListEditorScreen}/>
+        <Stack.Screen name = "ListEditor" component = {ListEditorScreen}/* options ={{
+          headerLeft: () => (
+            <Button title = "Back" onPress = {()=> Stack.push('ListDetails')}/>
+          )
+        }}*//>
       </Stack.Navigator>
     </NavigationContainer>
   );
