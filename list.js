@@ -10,9 +10,11 @@ export class List {
     CheckedStrings(){
         checked_string = ''
         unchecked_string = ''
-        for (let i = 1; i< this.checked.length; i++){
+        for (let i = 0; i <= this.checked.length; i++){
             if(i = this.checked.length){
                 checked_string += this.checked[i] + "."
+                console.log(this.checked[i]) //This is undefined
+                console.log(checked_string) //This is undefined
             }else{
                 checked_string += this.checked[i] + ", "
             }
@@ -27,7 +29,9 @@ export class List {
         }
         unchecked_string = unchecked_string.slice(0, -2)
         unchecked_string += "."
-       
+       //console.log(unchecked_string)
+       //console.log(checked_string)
+      // console.log(this.checked)
 
         return [checked_string, unchecked_string]
     }

@@ -141,7 +141,7 @@ function LoginScreen({navigation}) {
 }
 
 function HubScreen({navigation}){
-  const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.navigate('ListDetails', {
+  const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.push('ListDetails', {
     the_list: list
   })}/>)
 return(
@@ -193,6 +193,9 @@ function ListEditorScreen({route, navigation}){
         onChangeText={(text) => setCheckednum(text)}
       />
       <Button title="Check Number" onPress = {() => EditList(checked_num)}/>
+      <Button title="Save Updates" onPress = {() => navigation.push("ListDetails", {
+        the_list: list
+      })}/>
     </View>
   );
 }
