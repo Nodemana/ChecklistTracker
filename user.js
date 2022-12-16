@@ -12,5 +12,6 @@ export class User {
     makeList(list_name, size){
       const list = new List(list_name, size);
       this.lists.push(list);
+      console.log(this.lists[0])
     }
   }

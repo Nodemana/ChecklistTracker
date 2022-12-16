@@ -144,6 +144,7 @@ function HubScreen({navigation}){
   const list_container = current_user.lists.map(list => <Button title={String(list.list_name)} onPress={() => navigation.push('ListDetails', {
     the_list: list
   })}/>)
+  //console.log(current_user.list[0])
 return(
   <View style={styles.container}>
     <Text>All Lists</Text>
