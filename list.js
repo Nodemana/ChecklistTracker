@@ -6,11 +6,32 @@ export class List {
         this.list_name = list_name;
         this.size = size;
     }
-
+    //There is something wrong with this function, checked_string updates but lags the most recent data, unchecked_string does not update at all.
     CheckedStrings(){
-        checked_string = ''
-        unchecked_string = ''
-        //for (let i = 0; i <= this.checked.length; i++){
+        let checked_string = ''
+        let unchecked_string = ''
+
+        checked_string = this.checked.join(', ')
+        checked_string = checked_string.slice(0, -2)
+        const unchecked_length = this.size - this.checked.length
+
+        for (let j = 1; j<= this.size; j++){
+            if(!this.checked.includes(j)){
+                unchecked_string += j + ", "
+            }
+            
+        }
+        unchecked_string = unchecked_string.slice(0, -2)
+        unchecked_string += "."
+        console.log(unchecked_string)
+        console.log(checked_string)
+        console.log(this.checked)
+
+        return [checked_string, unchecked_string]
+    }
+
+  }
+          //for (let i = 0; i <= this.checked.length; i++){
             /*
             if(i = this.checked.length){
                 
@@ -26,24 +47,3 @@ export class List {
             
 
         //}
-        checked_string = this.checked.join(', ')
-        checked_string = checked_string.slice(0, -2)
-        unchecked_string += "."
-        const unchecked_length = this.size - this.checked.length
-
-        for (let j = 1; j<= this.size; j++){
-            if(!this.checked.includes(j)){
-                unchecked_string += j + ", "
-            }
-            
-        }
-        unchecked_string = unchecked_string.slice(0, -2)
-        unchecked_string += "."
-       //console.log(unchecked_string)
-       //console.log(checked_string)
-      // console.log(this.checked)
-
-        return [checked_string, unchecked_string]
-    }
-
-  }
